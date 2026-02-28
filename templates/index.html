@@ -2,1341 +2,1310 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบบันทึกการเข้าอบรมคอร์ส</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบบันทึกการเข้าอบรมคอร์ส</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <!-- Google Fonts - Sarabun for Thai + Playfair Display -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap"
-        rel="stylesheet">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <!-- Google Fonts - Sarabun for Thai + Playfair Display -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap"
+    rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --dark-bg: #1a1a2e;
-            --card-bg: #ffffff;
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
-        }
+  <style>
+    /* (คง CSS เดิมไว้เกือบทั้งหมด) */
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      --dark-bg: #1a1a2e;
+      --card-bg: #ffffff;
+      --text-primary: #2d3748;
+      --text-secondary: #718096;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+    }
 
-        * {
-            font-family: 'Sarabun', sans-serif;
-        }
+    * {
+      font-family: 'Sarabun', sans-serif;
+    }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 1rem 0;
-        }
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 1rem 0;
+    }
 
-        .main-header {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 1.5rem 0;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
+    .main-header {
+      background: var(--primary-gradient);
+      color: white;
+      padding: 1.5rem 0;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .main-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 20s infinite ease-in-out;
-        }
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+    }
 
-        @keyframes float {
+    @keyframes float {
 
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
 
-            33% {
-                transform: translate(30px, -30px) rotate(120deg);
-            }
+      33% {
+        transform: translate(30px, -30px) rotate(120deg);
+      }
 
-            66% {
-                transform: translate(-20px, 20px) rotate(240deg);
-            }
-        }
+      66% {
+        transform: translate(-20px, 20px) rotate(240deg);
+      }
+    }
 
-        .main-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 2rem;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 1;
-        }
+    .main-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2rem;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
 
-        .main-header p {
-            font-size: 0.95rem;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
-            margin: 0;
-        }
+    .main-header p {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+    }
 
-        .card {
-            border: none;
-            border-radius: 16px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: var(--card-bg);
-        }
+    .card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--card-bg);
+    }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
 
-        .card-header {
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 16px 16px 0 0 !important;
-            padding: 0.75rem 1rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
+    .card-header {
+      background: var(--primary-gradient);
+      color: white;
+      border-radius: 16px 16px 0 0 !important;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
 
-        .btn-gradient-primary {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
+    .btn-gradient-primary {
+      background: var(--primary-gradient);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
 
-        .btn-gradient-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            color: white;
-        }
+    .btn-gradient-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: white;
+    }
 
-        .btn-gradient-success {
-            background: var(--success-gradient);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
+    .btn-gradient-success {
+      background: var(--success-gradient);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
 
-        .btn-gradient-success:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            color: white;
-        }
+    .btn-gradient-success:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: white;
+    }
 
-        .btn-gradient-warning {
-            background: var(--warning-gradient);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
+    .btn-gradient-warning {
+      background: var(--warning-gradient);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
 
-        .btn-gradient-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            color: white;
-        }
+    .btn-gradient-warning:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: white;
+    }
 
-        .form-label {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-        }
+    .form-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
 
-        .form-control,
-        .form-select {
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.4rem 0.75rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
+    .form-control,
+    .form-select {
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.4rem 0.75rem;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
-        }
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
+    }
 
-        .table {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
+    .table {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
 
-        .table thead {
-            background: var(--primary-gradient);
-            color: white;
-        }
+    .table thead {
+      background: var(--primary-gradient);
+      color: white;
+    }
 
-        .table thead th {
-            border: none;
-            font-weight: 600;
-            padding: 0.6rem;
-            font-size: 0.9rem;
-        }
+    .table thead th {
+      border: none;
+      font-weight: 600;
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
 
-        .table tbody tr {
-            transition: background-color 0.2s ease;
-        }
+    .table tbody tr {
+      transition: background-color 0.2s ease;
+    }
 
-        .table tbody tr:hover {
-            background-color: #f8f9ff;
-        }
+    .table tbody tr:hover {
+      background-color: #f8f9ff;
+    }
 
-        .table tbody td {
-            padding: 0.5rem;
-            font-size: 0.9rem;
-            vertical-align: middle;
-        }
+    .table tbody td {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
 
-        .badge-status {
-            padding: 0.35rem 0.75rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
+    .badge-status {
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
 
-        .badge-pending {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            color: #2d3436;
-        }
+    .badge-pending {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      color: #2d3436;
+    }
 
-        .badge-approved {
-            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
-            color: white;
-        }
+    .badge-approved {
+      background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+      color: white;
+    }
 
-        .badge-rejected {
-            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-            color: white;
-        }
+    .badge-rejected {
+      background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+      color: white;
+    }
 
-        .stats-card {
-            background: white;
-            border-radius: 12px;
-            padding: 0.75rem;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
+    .stats-card {
+      background: white;
+      border-radius: 12px;
+      padding: 0.75rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
 
-        .stats-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
+    .stats-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
 
-        .stats-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    .stats-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .stats-label {
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-top: 0.25rem;
-            font-size: 0.85rem;
-        }
+    .stats-label {
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+    }
 
-        .action-btn {
-            padding: 0.35rem 0.65rem;
-            border-radius: 8px;
-            border: none;
-            transition: all 0.2s ease;
-            margin: 0 0.15rem;
-            font-size: 0.85rem;
-        }
+    .action-btn {
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      border: none;
+      transition: all 0.2s ease;
+      margin: 0 0.15rem;
+      font-size: 0.85rem;
+    }
 
-        .action-btn:hover {
-            transform: scale(1.05);
-        }
+    .action-btn:hover {
+      transform: scale(1.05);
+    }
 
-        .modal-content {
-            border: none;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-        }
+    .modal-content {
+      border: none;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
 
-        .modal-header {
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 20px 20px 0 0;
-            padding: 1.5rem;
-        }
+    .modal-header {
+      background: var(--primary-gradient);
+      color: white;
+      border-radius: 20px 20px 0 0;
+      padding: 1.5rem;
+    }
 
-        .search-box {
-            position: relative;
-        }
+    .search-box {
+      position: relative;
+    }
 
-        .search-box input {
-            padding-left: 3rem;
-        }
+    .search-box input {
+      padding-left: 3rem;
+    }
 
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
 
-        .file-upload-label {
-            display: block;
-            padding: 2rem;
-            border: 3px dashed var(--border-color);
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #f8f9ff;
-        }
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+    }
 
-        .file-upload-label:hover {
-            border-color: #667eea;
-            background: #eef2ff;
-        }
-
-        .file-upload-label i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .certificate-preview {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 16px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .certificate-preview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: var(--primary-gradient);
-        }
-
-        .certificate-preview::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: var(--primary-gradient);
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            .certificate-preview,
-            .certificate-preview * {
-                visibility: visible;
-            }
-
-            .certificate-preview {
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-    </style>
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="main-header">
-        <div class="container">
-            <h1><i class="bi bi-mortarboard-fill me-3"></i>ระบบบันทึกการเข้าอบรมคอร์ส</h1>
-            <p class="mb-0">จัดการและติดตามผลการอบรมของพนักงานอย่างมีประสิทธิภาพ</p>
-        </div>
-    </div>
-
+  <div class="main-header">
     <div class="container">
-        <!-- Statistics Dashboard -->
-        <div class="row mb-2 fade-in">
-            <div class="col-md-3 mb-2">
-                <div class="stats-card">
-                    <div class="stats-number" id="totalTrainees">0</div>
-                    <div class="stats-label">ผู้เข้าอบรมทั้งหมด</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <div class="stats-card">
-                    <div class="stats-number" id="approvedCount">0</div>
-                    <div class="stats-label">ผ่านการอบรม</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <div class="stats-card">
-                    <div class="stats-number" id="pendingCount">0</div>
-                    <div class="stats-label">รอการตรวจ</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <div class="stats-card">
-                    <div class="stats-number" id="avgScore">0</div>
-                    <div class="stats-label">คะแนนเฉลี่ย</div>
-                </div>
-            </div>
+      <h1><i class="bi bi-mortarboard-fill me-3"></i>ระบบบันทึกการเข้าอบรมคอร์ส</h1>
+      <p class="mb-0">จัดการและติดตามผลการอบรมของพนักงานอย่างมีประสิทธิภาพ</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Statistics Dashboard -->
+    <div class="row mb-2 fade-in">
+      <div class="col-md-3 mb-2">
+        <div class="stats-card">
+          <div class="stats-number" id="totalTrainees">0</div>
+          <div class="stats-label">ผู้เข้าอบรมทั้งหมด</div>
         </div>
-
-        <!-- Form Card -->
-        <div class="card fade-in">
-            <div class="card-header">
-                <i class="bi bi-clipboard-data me-2"></i>บันทึกข้อมูลการเข้าอบรม
-            </div>
-            <div class="card-body p-3">
-                <form id="trainingForm">
-                    <input type="hidden" id="editId" value="">
-
-                    <h6 class="mb-2"><i class="bi bi-person-badge me-2"></i>ข้อมูลส่วนตัว</h6>
-                    <div class="row mb-2">
-                        <div class="col-md-4">
-                            <label class="form-label">รหัสพนักงาน <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="employeeId" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">ชื่อ <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="firstName" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">นามสกุล <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="lastName" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <label class="form-label">อีเมล <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">แผนก <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="department" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">ตำแหน่ง <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="position" required>
-                        </div>
-                    </div>
-
-                    <hr class="my-2">
-
-                    <h6 class="mb-2"><i class="bi bi-book me-2"></i>ข้อมูลการอบรม</h6>
-                    <div class="row mb-2">
-                        <div class="col-md-8">
-                            <label class="form-label">ชื่อคอร์ส <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="courseName" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">หมวดหมู่</label>
-                            <select class="form-select" id="courseCategory">
-                                <option value="เทคโนโลยี">เทคโนโลยี</option>
-                                <option value="การจัดการ">การจัดการ</option>
-                                <option value="การตลาด">การตลาด</option>
-                                <option value="การเงิน">การเงิน</option>
-                                <option value="ทรัพยากรบุคคล">ทรัพยากรบุคคล</option>
-                                <option value="อื่นๆ">อื่นๆ</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-4">
-                            <label class="form-label">วันที่อบรม <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="trainingDate" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">เวลาเริ่ม</label>
-                            <input type="time" class="form-control" id="startTime">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">เวลาสิ้นสุด</label>
-                            <input type="time" class="form-control" id="endTime">
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <label class="form-label">ชื่อวิทยากร <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="instructorName" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">สถาบัน/องค์กร</label>
-                            <input type="text" class="form-control" id="institution">
-                        </div>
-                    </div>
-
-                    <hr class="my-2">
-
-                    <h6 class="mb-2"><i class="bi bi-graph-up me-2"></i>ผลการทดสอบ</h6>
-                    <div class="row mb-2">
-                        <div class="col-md-3">
-                            <label class="form-label">คะแนน Pre-Test <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="preTestScore" min="0" max="100" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">คะแนน Post-Test <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="postTestScore" min="0" max="100" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">เกณฑ์ผ่าน (%) <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="passingScore" min="0" max="100" value="70"
-                                required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">คะแนนรวม (คิดเฉลี่ย)</label>
-                            <input type="text" class="form-control" id="averageScore" readonly
-                                style="background-color: #f8f9ff; font-weight: 600;">
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label class="form-label">ไฟล์ Assignment</label>
-                        <input type="file" class="form-control" id="assignmentFile"
-                            accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
-                        <small class="text-muted">รองรับไฟล์: PDF, Word, PowerPoint, ZIP (ขนาดไม่เกิน 5MB)</small>
-                        <div id="currentFile" class="mt-2"></div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <label class="form-label">สถานะการตรวจ Assignment <span class="text-danger">*</span></label>
-                            <select class="form-select" id="assignmentStatus" required>
-                                <option value="รอตรวจ">รอตรวจ</option>
-                                <option value="ผ่าน">ผ่าน</option>
-                                <option value="ไม่ผ่าน">ไม่ผ่าน</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">ผลการประเมินโดยรวม</label>
-                            <select class="form-select" id="overallRating">
-                                <option value="">-- เลือก --</option>
-                                <option value="ดีเยี่ยม">ดีเยี่ยม</option>
-                                <option value="ดีมาก">ดีมาก</option>
-                                <option value="ดี">ดี</option>
-                                <option value="พอใช้">พอใช้</option>
-                                <option value="ควรปรับปรุง">ควรปรับปรุง</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label class="form-label">หมายเหตุ/ข้อมูลเพิ่มเติม</label>
-                        <textarea class="form-control" id="additionalNotes" rows="2"
-                            placeholder="ข้อเสนอแนะ, ความคิดเห็น, หรือข้อมูลอื่นๆ ที่ต้องการบันทึก"></textarea>
-                    </div>
-
-                    <div class="text-end">
-                        <button type="button" class="btn btn-secondary me-2" onclick="resetForm()">
-                            <i class="bi bi-x-circle me-2"></i>ล้างฟอร์ม
-                        </button>
-                        <button type="submit" class="btn btn-gradient-primary">
-                            <i class="bi bi-save me-2"></i>บันทึกข้อมูล
-                        </button>
-                    </div>
-                </form>
-            </div>
+      </div>
+      <div class="col-md-3 mb-2">
+        <div class="stats-card">
+          <div class="stats-number" id="approvedCount">0</div>
+          <div class="stats-label">ผ่านการอบรม</div>
         </div>
-
-        <!-- Records Table Card -->
-        <div class="card fade-in">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-table me-2"></i>รายการผู้เข้าอบรม</span>
-                <div>
-                    <button class="btn btn-light btn-sm me-2" onclick="exportToCSV()">
-                        <i class="bi bi-filetype-csv me-1"></i>Export CSV
-                    </button>
-                    <button class="btn btn-light btn-sm" onclick="exportToJSON()">
-                        <i class="bi bi-filetype-json me-1"></i>Export JSON
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <!-- Search Box -->
-                <div class="row mb-2">
-                    <div class="col-md-6">
-                        <div class="search-box">
-                            <i class="bi bi-search"></i>
-                            <input type="text" class="form-control" id="searchInput"
-                                placeholder="ค้นหาด้วย ชื่อ, อีเมล, คอร์ส, หรือแผนก...">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select" id="filterStatus">
-                            <option value="">ทุกสถานะ</option>
-                            <option value="รอตรวจ">รอตรวจ</option>
-                            <option value="ผ่าน">ผ่าน</option>
-                            <option value="ไม่ผ่าน">ไม่ผ่าน</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select" id="filterCategory">
-                            <option value="">ทุกหมวดหมู่</option>
-                            <option value="เทคโนโลยี">เทคโนโลยี</option>
-                            <option value="การจัดการ">การจัดการ</option>
-                            <option value="การตลาด">การตลาด</option>
-                            <option value="การเงิน">การเงิน</option>
-                            <option value="ทรัพยากรบุคคล">ทรัพยากรบุคคล</option>
-                            <option value="อื่นๆ">อื่นๆ</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="recordsContainer"></div>
-            </div>
+      </div>
+      <div class="col-md-3 mb-2">
+        <div class="stats-card">
+          <div class="stats-number" id="pendingCount">0</div>
+          <div class="stats-label">รอการตรวจ</div>
         </div>
+      </div>
+      <div class="col-md-3 mb-2">
+        <div class="stats-card">
+          <div class="stats-number" id="avgScore">0</div>
+          <div class="stats-label">คะแนนเฉลี่ย</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Certificate Modal -->
-    <div class="modal fade" id="certificateModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="bi bi-award me-2"></i>ใบประกาศนียบัตร</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="certificate-preview" id="certificateContent">
-                        <!-- Certificate content will be generated here -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                    <button type="button" class="btn btn-gradient-success" onclick="downloadCertificate()">
-                        <i class="bi bi-download me-2"></i>ดาวน์โหลด PDF
-                    </button>
-                </div>
+    <!-- Form Card -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <i class="bi bi-clipboard-data me-2"></i>บันทึกข้อมูลการเข้าอบรม
+      </div>
+      <div class="card-body p-3">
+        <form id="trainingForm">
+          <input type="hidden" id="editId" value="">
+
+          <h6 class="mb-2"><i class="bi bi-person-badge me-2"></i>ข้อมูลส่วนตัว</h6>
+          <div class="row mb-2">
+            <div class="col-md-4">
+              <label class="form-label">รหัสพนักงาน <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="employeeId" required>
             </div>
-        </div>
+            <div class="col-md-4">
+              <label class="form-label">ชื่อ <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="firstName" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">นามสกุล <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="lastName" required>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label class="form-label">อีเมล <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">แผนก <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="department" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">ตำแหน่ง <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="position" required>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <h6 class="mb-2"><i class="bi bi-book me-2"></i>ข้อมูลการอบรม</h6>
+          <div class="row mb-2">
+            <div class="col-md-8">
+              <label class="form-label">ชื่อคอร์ส <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="courseName" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">หมวดหมู่</label>
+              <select class="form-select" id="courseCategory">
+                <option value="เทคโนโลยี">เทคโนโลยี</option>
+                <option value="การจัดการ">การจัดการ</option>
+                <option value="การตลาด">การตลาด</option>
+                <option value="การเงิน">การเงิน</option>
+                <option value="ทรัพยากรบุคคล">ทรัพยากรบุคคล</option>
+                <option value="อื่นๆ">อื่นๆ</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4">
+              <label class="form-label">วันที่อบรม <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="trainingDate" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">เวลาเริ่ม</label>
+              <input type="time" class="form-control" id="startTime">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">เวลาสิ้นสุด</label>
+              <input type="time" class="form-control" id="endTime">
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label class="form-label">ชื่อวิทยากร <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="instructorName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">สถาบัน/องค์กร</label>
+              <input type="text" class="form-control" id="institution">
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <h6 class="mb-2"><i class="bi bi-graph-up me-2"></i>ผลการทดสอบ</h6>
+          <div class="row mb-2">
+            <div class="col-md-3">
+              <label class="form-label">คะแนน Pre-Test <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="preTestScore" min="0" max="100" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">คะแนน Post-Test <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="postTestScore" min="0" max="100" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">เกณฑ์ผ่าน (%) <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="passingScore" min="0" max="100" value="70" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">คะแนนรวม (คิดเฉลี่ย)</label>
+              <input type="text" class="form-control" id="averageScore" readonly
+                style="background-color: #f8f9ff; font-weight: 600;">
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">ไฟล์ Assignment</label>
+            <input type="file" class="form-control" id="assignmentFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
+            <small class="text-muted">รองรับไฟล์: PDF, Word, PowerPoint, ZIP (ขนาดไม่เกิน 5MB)</small>
+            <div id="currentFile" class="mt-2"></div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label class="form-label">สถานะการตรวจ Assignment <span class="text-danger">*</span></label>
+              <select class="form-select" id="assignmentStatus" required>
+                <option value="รอตรวจ">รอตรวจ</option>
+                <option value="ผ่าน">ผ่าน</option>
+                <option value="ไม่ผ่าน">ไม่ผ่าน</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">ผลการประเมินโดยรวม</label>
+              <select class="form-select" id="overallRating">
+                <option value="">-- เลือก --</option>
+                <option value="ดีเยี่ยม">ดีเยี่ยม</option>
+                <option value="ดีมาก">ดีมาก</option>
+                <option value="ดี">ดี</option>
+                <option value="พอใช้">พอใช้</option>
+                <option value="ควรปรับปรุง">ควรปรับปรุง</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">หมายเหตุ/ข้อมูลเพิ่มเติม</label>
+            <textarea class="form-control" id="additionalNotes" rows="2"
+              placeholder="ข้อเสนอแนะ, ความคิดเห็น, หรือข้อมูลอื่นๆ ที่ต้องการบันทึก"></textarea>
+          </div>
+
+          <div class="text-end">
+            <button type="button" class="btn btn-secondary me-2" onclick="resetForm()">
+              <i class="bi bi-x-circle me-2"></i>ล้างฟอร์ม
+            </button>
+            <button type="submit" class="btn btn-gradient-primary">
+              <i class="bi bi-save me-2"></i>บันทึกข้อมูล
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- jsPDF for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <script>
-        let trainingRecords = [];
-        let currentCertificateData = null;
-
-        // Load data from localStorage on page load
-        window.addEventListener('DOMContentLoaded', function () {
-            loadData();
-            displayRecords();
-            updateStatistics();
-
-            // Calculate average score automatically
-            document.getElementById('preTestScore').addEventListener('input', calculateAverage);
-            document.getElementById('postTestScore').addEventListener('input', calculateAverage);
-
-            // Search and filter functionality
-            document.getElementById('searchInput').addEventListener('input', displayRecords);
-            document.getElementById('filterStatus').addEventListener('change', displayRecords);
-            document.getElementById('filterCategory').addEventListener('change', displayRecords);
-
-            // File upload handler
-            document.getElementById('assignmentFile').addEventListener('change', handleFileUpload);
-        });
-
-        function calculateAverage() {
-            const preTest = parseFloat(document.getElementById('preTestScore').value) || 0;
-            const postTest = parseFloat(document.getElementById('postTestScore').value) || 0;
-            const average = ((preTest + postTest) / 2).toFixed(2);
-            document.getElementById('averageScore').value = average;
-        }
-
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                // Check file size (5MB limit)
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('ไฟล์มีขนาดใหญ่เกินกำหนด (สูงสุด 5MB)');
-                    event.target.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const fileData = {
-                        name: file.name,
-                        type: file.type,
-                        size: file.size,
-                        data: e.target.result
-                    };
-
-                    // Store in a temporary variable
-                    window.currentFileData = fileData;
-
-                    // Display file info
-                    document.getElementById('currentFile').innerHTML = `
-                        <div class="alert alert-info">
-                            <i class="bi bi-file-earmark me-2"></i>
-                            <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)
-                        </div>
-                    `;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Form submission
-        document.getElementById('trainingForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const editId = document.getElementById('editId').value;
-            const recordData = {
-                id: editId || Date.now().toString(),
-                timestamp: new Date().toISOString(),
-                employeeId: document.getElementById('employeeId').value,
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                department: document.getElementById('department').value,
-                position: document.getElementById('position').value,
-                courseName: document.getElementById('courseName').value,
-                courseCategory: document.getElementById('courseCategory').value,
-                trainingDate: document.getElementById('trainingDate').value,
-                startTime: document.getElementById('startTime').value,
-                endTime: document.getElementById('endTime').value,
-                instructorName: document.getElementById('instructorName').value,
-                institution: document.getElementById('institution').value,
-                preTestScore: parseFloat(document.getElementById('preTestScore').value),
-                postTestScore: parseFloat(document.getElementById('postTestScore').value),
-                passingScore: parseFloat(document.getElementById('passingScore').value),
-                averageScore: parseFloat(document.getElementById('averageScore').value),
-                assignmentFile: window.currentFileData || null,
-                assignmentStatus: document.getElementById('assignmentStatus').value,
-                overallRating: document.getElementById('overallRating').value,
-                additionalNotes: document.getElementById('additionalNotes').value
-            };
-
-            if (editId) {
-                // Update existing record
-                const index = trainingRecords.findIndex(r => r.id === editId);
-                if (index !== -1) {
-                    trainingRecords[index] = recordData;
-                }
-            } else {
-                // Add new record
-                trainingRecords.push(recordData);
-            }
-
-            saveData();
-            displayRecords();
-            updateStatistics();
-            resetForm();
-
-            // Show success message
-            showToast(editId ? 'อัปเดตข้อมูลเรียบร้อยแล้ว' : 'บันทึกข้อมูลเรียบร้อยแล้ว', 'success');
-        });
-
-        function loadData() {
-            const saved = localStorage.getItem('trainingRecords');
-            if (saved) {
-                trainingRecords = JSON.parse(saved);
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem('trainingRecords', JSON.stringify(trainingRecords));
-        }
-
-        function displayRecords() {
-            const container = document.getElementById('recordsContainer');
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('filterStatus').value;
-            const categoryFilter = document.getElementById('filterCategory').value;
-
-            let filteredRecords = trainingRecords.filter(record => {
-                const matchSearch = !searchTerm ||
-                    record.firstName.toLowerCase().includes(searchTerm) ||
-                    record.lastName.toLowerCase().includes(searchTerm) ||
-                    record.email.toLowerCase().includes(searchTerm) ||
-                    record.courseName.toLowerCase().includes(searchTerm) ||
-                    record.department.toLowerCase().includes(searchTerm);
-
-                const matchStatus = !statusFilter || record.assignmentStatus === statusFilter;
-                const matchCategory = !categoryFilter || record.courseCategory === categoryFilter;
-
-                return matchSearch && matchStatus && matchCategory;
-            });
-
-            if (filteredRecords.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="bi bi-inbox"></i>
-                        <h5>ไม่พบข้อมูล</h5>
-                        <p>ยังไม่มีการบันทึกข้อมูลการอบรม หรือไม่พบข้อมูลที่ตรงกับการค้นหา</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let tableHTML = `
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>รหัสพนักงาน</th>
-                                <th>ชื่อ-นามสกุล</th>
-                                <th>คอร์ส</th>
-                                <th>วันที่อบรม</th>
-                                <th>คะแนนเฉลี่ย</th>
-                                <th>สถานะ</th>
-                                <th>จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-
-            filteredRecords.forEach(record => {
-                const statusClass = record.assignmentStatus === 'ผ่าน' ? 'badge-approved' :
-                    record.assignmentStatus === 'ไม่ผ่าน' ? 'badge-rejected' : 'badge-pending';
-
-                const canDownloadCert = record.assignmentStatus === 'ผ่าน' && record.averageScore >= record.passingScore;
-
-                tableHTML += `
-                    <tr>
-                        <td><strong>${record.employeeId}</strong></td>
-                        <td>${record.firstName} ${record.lastName}<br><small class="text-muted">${record.email}</small></td>
-                        <td>
-                            <strong>${record.courseName}</strong><br>
-                            <small class="text-muted"><i class="bi bi-tag me-1"></i>${record.courseCategory}</small>
-                        </td>
-                        <td>${formatDate(record.trainingDate)}</td>
-                        <td>
-                            <strong style="color: ${record.averageScore >= record.passingScore ? '#00b894' : '#d63031'}">
-                                ${record.averageScore}
-                            </strong>
-                        </td>
-                        <td><span class="badge-status ${statusClass}">${record.assignmentStatus}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-info action-btn" onclick="viewDetails('${record.id}')" title="ดูรายละเอียด">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-warning action-btn" onclick="editRecord('${record.id}')" title="แก้ไข">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            ${canDownloadCert ? `
-                                <button class="btn btn-sm btn-success action-btn" onclick="showCertificate('${record.id}')" title="ใบประกาศนียบัตร">
-                                    <i class="bi bi-award"></i>
-                                </button>
-                            ` : ''}
-                            <button class="btn btn-sm btn-danger action-btn" onclick="deleteRecord('${record.id}')" title="ลบ">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            tableHTML += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
-
-            container.innerHTML = tableHTML;
-        }
-
-        function updateStatistics() {
-            const total = trainingRecords.length;
-            const approved = trainingRecords.filter(r => r.assignmentStatus === 'ผ่าน').length;
-            const pending = trainingRecords.filter(r => r.assignmentStatus === 'รอตรวจ').length;
-            const avgScore = total > 0 ?
-                (trainingRecords.reduce((sum, r) => sum + r.averageScore, 0) / total).toFixed(2) : 0;
-
-            document.getElementById('totalTrainees').textContent = total;
-            document.getElementById('approvedCount').textContent = approved;
-            document.getElementById('pendingCount').textContent = pending;
-            document.getElementById('avgScore').textContent = avgScore;
-        }
-
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('th-TH', options);
-        }
-
-        function viewDetails(id) {
-            const record = trainingRecords.find(r => r.id === id);
-            if (!record) return;
-
-            const detailsHTML = `
-                <div class="modal fade" id="detailsModal" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title"><i class="bi bi-info-circle me-2"></i>รายละเอียดการอบรม</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted">ข้อมูลผู้เข้าอบรม</h6>
-                                        <p><strong>รหัสพนักงาน:</strong> ${record.employeeId}</p>
-                                        <p><strong>ชื่อ:</strong> ${record.firstName} ${record.lastName}</p>
-                                        <p><strong>อีเมล:</strong> ${record.email}</p>
-                                        <p><strong>แผนก:</strong> ${record.department}</p>
-                                        <p><strong>ตำแหน่ง:</strong> ${record.position}</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted">ข้อมูลการอบรม</h6>
-                                        <p><strong>คอร์ส:</strong> ${record.courseName}</p>
-                                        <p><strong>หมวดหมู่:</strong> ${record.courseCategory}</p>
-                                        <p><strong>วันที่:</strong> ${formatDate(record.trainingDate)}</p>
-                                        <p><strong>เวลา:</strong> ${record.startTime || '-'} - ${record.endTime || '-'}</p>
-                                        <p><strong>วิทยากร:</strong> ${record.instructorName}</p>
-                                        <p><strong>สถาบัน:</strong> ${record.institution || '-'}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <h6 class="text-muted">ผลการทดสอบ</h6>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p><strong>Pre-Test:</strong> ${record.preTestScore}</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p><strong>Post-Test:</strong> ${record.postTestScore}</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p><strong>เกณฑ์ผ่าน:</strong> ${record.passingScore}%</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p><strong>คะแนนเฉลี่ย:</strong> <span style="color: ${record.averageScore >= record.passingScore ? '#00b894' : '#d63031'}">${record.averageScore}</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <p><strong>สถานะ Assignment:</strong> <span class="badge-status ${record.assignmentStatus === 'ผ่าน' ? 'badge-approved' : record.assignmentStatus === 'ไม่ผ่าน' ? 'badge-rejected' : 'badge-pending'}">${record.assignmentStatus}</span></p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><strong>ผลการประเมิน:</strong> ${record.overallRating || '-'}</p>
-                                    </div>
-                                </div>
-                                ${record.assignmentFile ? `
-                                    <p><strong>ไฟล์ Assignment:</strong> <i class="bi bi-file-earmark me-1"></i>${record.assignmentFile.name} (${(record.assignmentFile.size / 1024).toFixed(2)} KB)</p>
-                                ` : ''}
-                                ${record.additionalNotes ? `
-                                    <hr>
-                                    <h6 class="text-muted">หมายเหตุ</h6>
-                                    <p>${record.additionalNotes}</p>
-                                ` : ''}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Remove old modal if exists
-            const oldModal = document.getElementById('detailsModal');
-            if (oldModal) oldModal.remove();
-
-            // Add new modal
-            document.body.insertAdjacentHTML('beforeend', detailsHTML);
-            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
-            modal.show();
-        }
-
-        function editRecord(id) {
-            const record = trainingRecords.find(r => r.id === id);
-            if (!record) return;
-
-            // Populate form
-            document.getElementById('editId').value = record.id;
-            document.getElementById('employeeId').value = record.employeeId;
-            document.getElementById('firstName').value = record.firstName;
-            document.getElementById('lastName').value = record.lastName;
-            document.getElementById('email').value = record.email;
-            document.getElementById('department').value = record.department;
-            document.getElementById('position').value = record.position;
-            document.getElementById('courseName').value = record.courseName;
-            document.getElementById('courseCategory').value = record.courseCategory;
-            document.getElementById('trainingDate').value = record.trainingDate;
-            document.getElementById('startTime').value = record.startTime;
-            document.getElementById('endTime').value = record.endTime;
-            document.getElementById('instructorName').value = record.instructorName;
-            document.getElementById('institution').value = record.institution;
-            document.getElementById('preTestScore').value = record.preTestScore;
-            document.getElementById('postTestScore').value = record.postTestScore;
-            document.getElementById('passingScore').value = record.passingScore;
-            document.getElementById('averageScore').value = record.averageScore;
-            document.getElementById('assignmentStatus').value = record.assignmentStatus;
-            document.getElementById('overallRating').value = record.overallRating;
-            document.getElementById('additionalNotes').value = record.additionalNotes;
-
-            if (record.assignmentFile) {
-                window.currentFileData = record.assignmentFile;
-                document.getElementById('currentFile').innerHTML = `
-                    <div class="alert alert-info">
-                        <i class="bi bi-file-earmark me-2"></i>
-                        <strong>${record.assignmentFile.name}</strong> (${(record.assignmentFile.size / 1024).toFixed(2)} KB)
-                    </div>
-                `;
-            }
-
-            // Scroll to form
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function deleteRecord(id) {
-            if (confirm('คุณต้องการลบข้อมูลนี้ใช่หรือไม่?')) {
-                trainingRecords = trainingRecords.filter(r => r.id !== id);
-                saveData();
-                displayRecords();
-                updateStatistics();
-                showToast('ลบข้อมูลเรียบร้อยแล้ว', 'danger');
-            }
-        }
-
-        function resetForm() {
-            document.getElementById('trainingForm').reset();
-            document.getElementById('editId').value = '';
-            document.getElementById('currentFile').innerHTML = '';
-            window.currentFileData = null;
-            document.getElementById('averageScore').value = '';
-        }
-
-        function showCertificate(id) {
-            const record = trainingRecords.find(r => r.id === id);
-            if (!record) return;
-
-            currentCertificateData = record;
-
-            const certHTML = `
-                <div style="padding: 2rem; font-family: 'Sarabun', sans-serif;">
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #667eea; margin: 0;">
-                            ใบประกาศนียบัตร
-                        </h1>
-                        <p style="font-size: 1.2rem; color: #718096; margin-top: 0.5rem;">Certificate of Completion</p>
-                    </div>
-                    
-                    <div style="text-align: center; margin: 2rem 0;">
-                        <p style="font-size: 1.1rem; color: #2d3748;">ขอมอบให้แก่</p>
-                        <h2 style="font-size: 2.5rem; color: #2d3748; margin: 1rem 0; font-weight: 700;">
-                            ${record.firstName} ${record.lastName}
-                        </h2>
-                        <p style="font-size: 1rem; color: #718096;">รหัสพนักงาน: ${record.employeeId}</p>
-                    </div>
-                    
-                    <div style="text-align: center; margin: 2rem 0; padding: 2rem; background: #f8f9ff; border-radius: 12px;">
-                        <p style="font-size: 1.1rem; color: #2d3748; margin-bottom: 0.5rem;">ผ่านการอบรมหลักสูตร</p>
-                        <h3 style="font-size: 1.8rem; color: #667eea; margin: 0.5rem 0; font-weight: 700;">
-                            ${record.courseName}
-                        </h3>
-                        <p style="font-size: 1rem; color: #718096; margin-top: 0.5rem;">
-                            โดย ${record.instructorName}${record.institution ? ' จาก ' + record.institution : ''}
-                        </p>
-                        <p style="font-size: 1rem; color: #718096; margin-top: 1rem;">
-                            วันที่อบรม: ${formatDate(record.trainingDate)}
-                        </p>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-around; margin: 2rem 0; padding: 1rem; background: white; border-radius: 12px; border: 2px solid #e2e8f0;">
-                        <div style="text-align: center;">
-                            <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนน Pre-Test</p>
-                            <p style="font-size: 2rem; color: #667eea; font-weight: 700; margin: 0.5rem 0;">${record.preTestScore}</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนน Post-Test</p>
-                            <p style="font-size: 2rem; color: #667eea; font-weight: 700; margin: 0.5rem 0;">${record.postTestScore}</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนนเฉลี่ย</p>
-                            <p style="font-size: 2rem; color: #00b894; font-weight: 700; margin: 0.5rem 0;">${record.averageScore}</p>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 3rem;">
-                        <p style="font-size: 0.9rem; color: #718096;">ออกให้ ณ วันที่ ${formatDate(new Date().toISOString().split('T')[0])}</p>
-                        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #2d3748; display: inline-block; width: 300px;">
-                            <p style="font-size: 1rem; color: #2d3748; margin: 0;">ผู้อำนวยการฝ่ายทรัพยากรบุคคล</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('certificateContent').innerHTML = certHTML;
-            const modal = new bootstrap.Modal(document.getElementById('certificateModal'));
-            modal.show();
-        }
-
-        function downloadCertificate() {
-            if (!currentCertificateData) return;
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({
-                orientation: 'landscape',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            // Add Thai font support (using default fonts for simplicity)
-            const record = currentCertificateData;
-
-            // Header
-            doc.setFontSize(32);
-            doc.setTextColor(102, 126, 234);
-            doc.text('ใบประกาศนียบัตร', 148.5, 40, { align: 'center' });
-
-            doc.setFontSize(14);
-            doc.setTextColor(113, 128, 150);
-            doc.text('Certificate of Completion', 148.5, 50, { align: 'center' });
-
-            // Body
-            doc.setFontSize(12);
-            doc.setTextColor(45, 55, 72);
-            doc.text('ขอมอบให้แก่', 148.5, 70, { align: 'center' });
-
-            doc.setFontSize(24);
-            doc.setTextColor(45, 55, 72);
-            doc.text(`${record.firstName} ${record.lastName}`, 148.5, 85, { align: 'center' });
-
-            doc.setFontSize(10);
-            doc.setTextColor(113, 128, 150);
-            doc.text(`รหัสพนักงาน: ${record.employeeId}`, 148.5, 92, { align: 'center' });
-
-            doc.setFontSize(12);
-            doc.setTextColor(45, 55, 72);
-            doc.text('ผ่านการอบรมหลักสูตร', 148.5, 105, { align: 'center' });
-
-            doc.setFontSize(18);
-            doc.setTextColor(102, 126, 234);
-            doc.text(record.courseName, 148.5, 115, { align: 'center' });
-
-            doc.setFontSize(10);
-            doc.setTextColor(113, 128, 150);
-            doc.text(`โดย ${record.instructorName}`, 148.5, 123, { align: 'center' });
-            doc.text(`วันที่อบรม: ${formatDate(record.trainingDate)}`, 148.5, 130, { align: 'center' });
-
-            // Scores
-            doc.setFontSize(10);
-            doc.text(`Pre-Test: ${record.preTestScore}`, 80, 150, { align: 'center' });
-            doc.text(`Post-Test: ${record.postTestScore}`, 148.5, 150, { align: 'center' });
-            doc.text(`คะแนนเฉลี่ย: ${record.averageScore}`, 217, 150, { align: 'center' });
-
-            // Footer
-            doc.setFontSize(9);
-            doc.text(`ออกให้ ณ วันที่ ${formatDate(new Date().toISOString().split('T')[0])}`, 148.5, 175, { align: 'center' });
-
-            doc.line(118.5, 185, 178.5, 185);
-            doc.text('ผู้อำนวยการฝ่ายทรัพยากรบุคคล', 148.5, 190, { align: 'center' });
-
-            // Save
-            doc.save(`certificate_${record.employeeId}_${record.firstName}_${record.lastName}.pdf`);
-            showToast('ดาวน์โหลดใบประกาศนียบัตรเรียบร้อยแล้ว', 'success');
-        }
-
-        function exportToCSV() {
-            if (trainingRecords.length === 0) {
-                alert('ไม่มีข้อมูลให้ Export');
-                return;
-            }
-
-            const headers = [
-                'รหัสพนักงาน', 'ชื่อ', 'นามสกุล', 'อีเมล', 'แผนก', 'ตำแหน่ง',
-                'คอร์ส', 'หมวดหมู่', 'วันที่อบรม', 'เวลาเริ่ม', 'เวลาสิ้นสุด',
-                'วิทยากร', 'สถาบัน', 'Pre-Test', 'Post-Test', 'เกณฑ์ผ่าน', 'คะแนนเฉลี่ย',
-                'สถานะ Assignment', 'ผลการประเมิน', 'หมายเหตุ'
-            ];
-
-            let csv = '\uFEFF' + headers.join(',') + '\n';
-
-            trainingRecords.forEach(record => {
-                const row = [
-                    record.employeeId,
-                    record.firstName,
-                    record.lastName,
-                    record.email,
-                    record.department,
-                    record.position,
-                    `"${record.courseName}"`,
-                    record.courseCategory,
-                    record.trainingDate,
-                    record.startTime,
-                    record.endTime,
-                    `"${record.instructorName}"`,
-                    `"${record.institution || ''}"`,
-                    record.preTestScore,
-                    record.postTestScore,
-                    record.passingScore,
-                    record.averageScore,
-                    record.assignmentStatus,
-                    record.overallRating || '',
-                    `"${(record.additionalNotes || '').replace(/"/g, '""')}"`
-                ];
-                csv += row.join(',') + '\n';
-            });
-
-            downloadFile(csv, 'training_records.csv', 'text/csv;charset=utf-8;');
-            showToast('Export CSV เรียบร้อยแล้ว', 'success');
-        }
-
-        function exportToJSON() {
-            if (trainingRecords.length === 0) {
-                alert('ไม่มีข้อมูลให้ Export');
-                return;
-            }
-
-            const json = JSON.stringify(trainingRecords, null, 2);
-            downloadFile(json, 'training_records.json', 'application/json');
-            showToast('Export JSON เรียบร้อยแล้ว', 'success');
-        }
-
-        function downloadFile(content, filename, mimeType) {
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        function showToast(message, type = 'info') {
-            const colors = {
-                success: '#00b894',
-                danger: '#d63031',
-                warning: '#fdcb6e',
-                info: '#667eea'
-            };
-
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${colors[type]};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 12px;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-                z-index: 9999;
-                font-weight: 600;
-                animation: slideIn 0.3s ease-out;
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.animation = 'slideOut 0.3s ease-out';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Add animation styles
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-            }
+    <!-- Records Table Card -->
+    <div class="card fade-in">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-table me-2"></i>รายการผู้เข้าอบรม</span>
+        <div>
+          <button class="btn btn-light btn-sm me-2" onclick="exportToCSV()">
+            <i class="bi bi-filetype-csv me-1"></i>Export CSV
+          </button>
+          <button class="btn btn-light btn-sm" onclick="exportToJSON()">
+            <i class="bi bi-filetype-json me-1"></i>Export JSON
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Search Box -->
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" class="form-control" id="searchInput"
+                placeholder="ค้นหาด้วย ชื่อ, อีเมล, คอร์ส, หรือแผนก...">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" id="filterStatus">
+              <option value="">ทุกสถานะ</option>
+              <option value="รอตรวจ">รอตรวจ</option>
+              <option value="ผ่าน">ผ่าน</option>
+              <option value="ไม่ผ่าน">ไม่ผ่าน</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" id="filterCategory">
+              <option value="">ทุกหมวดหมู่</option>
+              <option value="เทคโนโลยี">เทคโนโลยี</option>
+              <option value="การจัดการ">การจัดการ</option>
+              <option value="การตลาด">การตลาด</option>
+              <option value="การเงิน">การเงิน</option>
+              <option value="ทรัพยากรบุคคล">ทรัพยากรบุคคล</option>
+              <option value="อื่นๆ">อื่นๆ</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="recordsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Modal (คงของเดิมไว้) -->
+  <div class="modal fade" id="certificateModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-award me-2"></i>ใบประกาศนียบัตร</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="certificate-preview" id="certificateContent"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+          <button type="button" class="btn btn-gradient-success" onclick="downloadCertificate()">
+            <i class="bi bi-download me-2"></i>ดาวน์โหลด PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    /******************************************************************
+     * ✅ CONFIG (แก้ 2 ค่านี้ให้ถูกก่อนใช้งาน)
+     ******************************************************************/
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxndmNz7A0a6ct220RYhhPycM6m5DRfbxutA2_kWVN2p7dWQSwCLbk85Es3zUljPyy/exec";
+    const API_KEY = "my_hr_app_2026_secret"; // ตั้งค่าใน Script Properties ฝั่ง Apps Script ด้วย
+
+    /******************************************************************
+     * State
+     ******************************************************************/
+    let trainingRecords = [];          // ข้อมูลที่ดึงมาจาก Google Sheets ล่าสุด
+    let currentCertificateData = null; // สำหรับใบประกาศ
+    window.currentFileData = null;     // ไฟล์ที่อัปโหลดล่าสุด (base64)
+
+    /******************************************************************
+     * Boot
+     ******************************************************************/
+    window.addEventListener('DOMContentLoaded', async function () {
+      // Calculate average score automatically
+      document.getElementById('preTestScore').addEventListener('input', calculateAverage);
+      document.getElementById('postTestScore').addEventListener('input', calculateAverage);
+
+      // Search and filter triggers -> เรียก backend แล้วแสดงผล
+      document.getElementById('searchInput').addEventListener('input', debounce(runSearch, 300));
+      document.getElementById('filterStatus').addEventListener('change', runSearch);
+      document.getElementById('filterCategory').addEventListener('change', runSearch);
+
+      // File upload handler
+      document.getElementById('assignmentFile').addEventListener('change', handleFileUpload);
+
+      // Initial load from Google Sheets
+      await refreshFromServer();
+    });
+
+    function calculateAverage() {
+      const preTest = parseFloat(document.getElementById('preTestScore').value) || 0;
+      const postTest = parseFloat(document.getElementById('postTestScore').value) || 0;
+      const average = ((preTest + postTest) / 2).toFixed(2);
+      document.getElementById('averageScore').value = average;
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Check file size (5MB limit) — (ของเดิม)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('ไฟล์มีขนาดใหญ่เกินกำหนด (สูงสุด 5MB)');
+        event.target.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        // DataURL: data:application/pdf;base64,xxxx
+        const fileData = {
+          name: file.name,
+          type: file.type || 'application/octet-stream',
+          size: file.size,
+          dataUrl: e.target.result,
+        };
+        window.currentFileData = fileData;
+
+        document.getElementById('currentFile').innerHTML = `
+          <div class="alert alert-info">
+            <i class="bi bi-file-earmark me-2"></i>
+            <strong>${escapeHtml(file.name)}</strong> (${(file.size / 1024).toFixed(2)} KB)
+          </div>
         `;
-        document.head.appendChild(style);
-    </script>
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /******************************************************************
+     * Backend helper (Apps Script Web App)
+     ******************************************************************/
+    async function callBackend(action, payload = {}) {
+      if (!WEB_APP_URL || WEB_APP_URL.startsWith("PASTE_")) {
+        throw new Error("ยังไม่ได้ตั้งค่า WEB_APP_URL ใน index.html");
+      }
+      const res = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          apiKey: API_KEY,
+          action,
+          payload,
+        })
+      });
+
+      // Apps Script จะคืน JSON
+      const data = await res.json();
+      if (!data.ok) {
+        const msg = data.error || "Backend error";
+        throw new Error(msg);
+      }
+      return data;
+    }
+
+    async function refreshFromServer() {
+      try {
+        const data = await callBackend("listRecords", {});
+        trainingRecords = data.records || [];
+        displayRecords(trainingRecords);
+        updateStatistics(trainingRecords);
+      } catch (err) {
+        console.error(err);
+        showToast(`โหลดข้อมูลไม่สำเร็จ: ${err.message}`, 'danger');
+        // fallback: โชว์ empty state
+        trainingRecords = [];
+        displayRecords([]);
+        updateStatistics([]);
+      }
+    }
+
+    async function runSearch() {
+      try {
+        const searchTerm = document.getElementById('searchInput').value.trim();
+        const statusFilter = document.getElementById('filterStatus').value;
+        const categoryFilter = document.getElementById('filterCategory').value;
+
+        const data = await callBackend("queryRecords", {
+          q: searchTerm,
+          status: statusFilter,
+          category: categoryFilter
+        });
+
+        trainingRecords = data.records || [];
+        displayRecords(trainingRecords);
+        updateStatistics(trainingRecords);
+      } catch (err) {
+        console.error(err);
+        showToast(`ค้นหาไม่สำเร็จ: ${err.message}`, 'danger');
+      }
+    }
+
+    /******************************************************************
+     * Form submission -> Save to Google Sheets + Upload file to Drive
+     ******************************************************************/
+    document.getElementById('trainingForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('editId').value;
+      const recordData = {
+        id: editId || Date.now().toString(),
+        timestamp: new Date().toISOString(),
+        employeeId: document.getElementById('employeeId').value,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        department: document.getElementById('department').value,
+        position: document.getElementById('position').value,
+        courseName: document.getElementById('courseName').value,
+        courseCategory: document.getElementById('courseCategory').value,
+        trainingDate: document.getElementById('trainingDate').value,
+        startTime: document.getElementById('startTime').value,
+        endTime: document.getElementById('endTime').value,
+        instructorName: document.getElementById('instructorName').value,
+        institution: document.getElementById('institution').value,
+        preTestScore: parseFloat(document.getElementById('preTestScore').value),
+        postTestScore: parseFloat(document.getElementById('postTestScore').value),
+        passingScore: parseFloat(document.getElementById('passingScore').value),
+        averageScore: parseFloat(document.getElementById('averageScore').value || "0"),
+        assignmentStatus: document.getElementById('assignmentStatus').value,
+        overallRating: document.getElementById('overallRating').value,
+        additionalNotes: document.getElementById('additionalNotes').value
+      };
+
+      // แนบไฟล์ (ถ้ามี) -> ส่งขึ้น backend เพื่อบันทึกลง Drive
+      const fileData = window.currentFileData
+        ? {
+          name: window.currentFileData.name,
+          mimeType: window.currentFileData.type,
+          size: window.currentFileData.size,
+          dataUrl: window.currentFileData.dataUrl
+        }
+        : null;
+
+      try {
+        await callBackend("upsertRecord", { record: recordData, file: fileData });
+
+        showToast(editId ? 'อัปเดตข้อมูลเรียบร้อยแล้ว (Sheets/Drive)' : 'บันทึกข้อมูลเรียบร้อยแล้ว (Sheets/Drive)', 'success');
+        resetForm();
+        await refreshFromServer(); // reload
+      } catch (err) {
+        console.error(err);
+        showToast(`บันทึกไม่สำเร็จ: ${err.message}`, 'danger');
+      }
+    });
+
+    /******************************************************************
+     * UI: display table (ใช้ data ที่ส่งเข้ามา ไม่อ่าน localStorage)
+     ******************************************************************/
+    function displayRecords(records) {
+      const container = document.getElementById('recordsContainer');
+
+      if (!records || records.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h5>ไม่พบข้อมูล</h5>
+            <p>ยังไม่มีการบันทึกข้อมูลการอบรม หรือไม่พบข้อมูลที่ตรงกับการค้นหา</p>
+          </div>
+        `;
+        return;
+      }
+
+      let tableHTML = `
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>รหัสพนักงาน</th>
+                <th>ชื่อ-นามสกุล</th>
+                <th>คอร์ส</th>
+                <th>วันที่อบรม</th>
+                <th>คะแนนเฉลี่ย</th>
+                <th>สถานะ</th>
+                <th>จัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      records.forEach(record => {
+        const statusClass = record.assignmentStatus === 'ผ่าน' ? 'badge-approved' :
+          record.assignmentStatus === 'ไม่ผ่าน' ? 'badge-rejected' : 'badge-pending';
+
+        const canDownloadCert = record.assignmentStatus === 'ผ่าน' && Number(record.averageScore) >= Number(record.passingScore);
+
+        tableHTML += `
+          <tr>
+            <td><strong>${escapeHtml(record.employeeId || '')}</strong></td>
+            <td>${escapeHtml(record.firstName || '')} ${escapeHtml(record.lastName || '')}<br><small class="text-muted">${escapeHtml(record.email || '')}</small></td>
+            <td>
+              <strong>${escapeHtml(record.courseName || '')}</strong><br>
+              <small class="text-muted"><i class="bi bi-tag me-1"></i>${escapeHtml(record.courseCategory || '')}</small>
+            </td>
+            <td>${formatDate(record.trainingDate)}</td>
+            <td>
+              <strong style="color: ${Number(record.averageScore) >= Number(record.passingScore) ? '#00b894' : '#d63031'}">
+                ${escapeHtml(String(record.averageScore ?? ''))}
+              </strong>
+            </td>
+            <td><span class="badge-status ${statusClass}">${escapeHtml(record.assignmentStatus || '')}</span></td>
+            <td>
+              <button class="btn btn-sm btn-info action-btn" onclick="viewDetails('${record.id}')" title="ดูรายละเอียด">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning action-btn" onclick="editRecord('${record.id}')" title="แก้ไข">
+                <i class="bi bi-pencil"></i>
+              </button>
+              ${canDownloadCert ? `
+                <button class="btn btn-sm btn-success action-btn" onclick="showCertificate('${record.id}')" title="ใบประกาศนียบัตร">
+                  <i class="bi bi-award"></i>
+                </button>
+              ` : ''}
+              <button class="btn btn-sm btn-danger action-btn" onclick="deleteRecord('${record.id}')" title="ลบ">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      container.innerHTML = tableHTML;
+    }
+
+    function updateStatistics(records) {
+      const total = records.length;
+      const approved = records.filter(r => r.assignmentStatus === 'ผ่าน').length;
+      const pending = records.filter(r => r.assignmentStatus === 'รอตรวจ').length;
+      const avgScore = total > 0 ?
+        (records.reduce((sum, r) => sum + Number(r.averageScore || 0), 0) / total).toFixed(2) : 0;
+
+      document.getElementById('totalTrainees').textContent = total;
+      document.getElementById('approvedCount').textContent = approved;
+      document.getElementById('pendingCount').textContent = pending;
+      document.getElementById('avgScore').textContent = avgScore;
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return '-';
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('th-TH', options);
+    }
+
+    /******************************************************************
+     * Detail / Edit / Delete (Delete เรียก backend)
+     ******************************************************************/
+    function viewDetails(id) {
+      const record = trainingRecords.find(r => r.id === id);
+      if (!record) return;
+
+      const fileLine = record.assignmentFileUrl
+        ? `<p><strong>ไฟล์ Assignment:</strong> <a href="${record.assignmentFileUrl}" target="_blank" rel="noopener">เปิดไฟล์</a> (${escapeHtml(record.assignmentFileName || '')})</p>`
+        : '';
+
+      const detailsHTML = `
+        <div class="modal fade" id="detailsModal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-info-circle me-2"></i>รายละเอียดการอบรม</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <h6 class="text-muted">ข้อมูลผู้เข้าอบรม</h6>
+                    <p><strong>รหัสพนักงาน:</strong> ${escapeHtml(record.employeeId || '')}</p>
+                    <p><strong>ชื่อ:</strong> ${escapeHtml(record.firstName || '')} ${escapeHtml(record.lastName || '')}</p>
+                    <p><strong>อีเมล:</strong> ${escapeHtml(record.email || '')}</p>
+                    <p><strong>แผนก:</strong> ${escapeHtml(record.department || '')}</p>
+                    <p><strong>ตำแหน่ง:</strong> ${escapeHtml(record.position || '')}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="text-muted">ข้อมูลการอบรม</h6>
+                    <p><strong>คอร์ส:</strong> ${escapeHtml(record.courseName || '')}</p>
+                    <p><strong>หมวดหมู่:</strong> ${escapeHtml(record.courseCategory || '')}</p>
+                    <p><strong>วันที่:</strong> ${formatDate(record.trainingDate)}</p>
+                    <p><strong>เวลา:</strong> ${escapeHtml(record.startTime || '-')} - ${escapeHtml(record.endTime || '-')}</p>
+                    <p><strong>วิทยากร:</strong> ${escapeHtml(record.instructorName || '')}</p>
+                    <p><strong>สถาบัน:</strong> ${escapeHtml(record.institution || '-')}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <h6 class="text-muted">ผลการทดสอบ</h6>
+                    <div class="row">
+                      <div class="col-md-3"><p><strong>Pre-Test:</strong> ${escapeHtml(String(record.preTestScore ?? ''))}</p></div>
+                      <div class="col-md-3"><p><strong>Post-Test:</strong> ${escapeHtml(String(record.postTestScore ?? ''))}</p></div>
+                      <div class="col-md-3"><p><strong>เกณฑ์ผ่าน:</strong> ${escapeHtml(String(record.passingScore ?? ''))}%</p></div>
+                      <div class="col-md-3"><p><strong>คะแนนเฉลี่ย:</strong> <span style="color: ${Number(record.averageScore) >= Number(record.passingScore) ? '#00b894' : '#d63031'}">${escapeHtml(String(record.averageScore ?? ''))}</span></p></div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <p><strong>สถานะ Assignment:</strong> <span class="badge-status ${record.assignmentStatus === 'ผ่าน' ? 'badge-approved' : record.assignmentStatus === 'ไม่ผ่าน' ? 'badge-rejected' : 'badge-pending'}">${escapeHtml(record.assignmentStatus || '')}</span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><strong>ผลการประเมิน:</strong> ${escapeHtml(record.overallRating || '-')}</p>
+                  </div>
+                </div>
+                ${fileLine}
+                ${record.additionalNotes ? `
+                  <hr>
+                  <h6 class="text-muted">หมายเหตุ</h6>
+                  <p>${escapeHtml(record.additionalNotes)}</p>
+                ` : ''}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const oldModal = document.getElementById('detailsModal');
+      if (oldModal) oldModal.remove();
+
+      document.body.insertAdjacentHTML('beforeend', detailsHTML);
+      const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+      modal.show();
+    }
+
+    function editRecord(id) {
+      const record = trainingRecords.find(r => r.id === id);
+      if (!record) return;
+
+      document.getElementById('editId').value = record.id || '';
+      document.getElementById('employeeId').value = record.employeeId || '';
+      document.getElementById('firstName').value = record.firstName || '';
+      document.getElementById('lastName').value = record.lastName || '';
+      document.getElementById('email').value = record.email || '';
+      document.getElementById('department').value = record.department || '';
+      document.getElementById('position').value = record.position || '';
+      document.getElementById('courseName').value = record.courseName || '';
+      document.getElementById('courseCategory').value = record.courseCategory || '';
+      document.getElementById('trainingDate').value = record.trainingDate || '';
+      document.getElementById('startTime').value = record.startTime || '';
+      document.getElementById('endTime').value = record.endTime || '';
+      document.getElementById('instructorName').value = record.instructorName || '';
+      document.getElementById('institution').value = record.institution || '';
+      document.getElementById('preTestScore').value = record.preTestScore ?? '';
+      document.getElementById('postTestScore').value = record.postTestScore ?? '';
+      document.getElementById('passingScore').value = record.passingScore ?? 70;
+      document.getElementById('averageScore').value = record.averageScore ?? '';
+      document.getElementById('assignmentStatus').value = record.assignmentStatus || 'รอตรวจ';
+      document.getElementById('overallRating').value = record.overallRating || '';
+      document.getElementById('additionalNotes').value = record.additionalNotes || '';
+
+      // ไม่ดึงไฟล์เดิมกลับมาเป็น base64 (เพื่อกันหนัก/ช้า)
+      window.currentFileData = null;
+      document.getElementById('assignmentFile').value = '';
+      document.getElementById('currentFile').innerHTML = record.assignmentFileUrl ? `
+        <div class="alert alert-info">
+          <i class="bi bi-file-earmark me-2"></i>
+          <strong>${escapeHtml(record.assignmentFileName || '')}</strong>
+          <div><a href="${record.assignmentFileUrl}" target="_blank" rel="noopener">เปิดไฟล์เดิม</a></div>
+          <small class="text-muted">ถ้าเลือกไฟล์ใหม่ ระบบจะอัปโหลดไฟล์ใหม่ทับข้อมูลใน Sheet (แต่ไฟล์เดิมใน Drive จะยังอยู่)</small>
+        </div>
+      ` : '';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function deleteRecord(id) {
+      if (!confirm('คุณต้องการลบข้อมูลนี้ใช่หรือไม่?')) return;
+
+      try {
+        await callBackend("deleteRecord", { id });
+        showToast('ลบข้อมูลเรียบร้อยแล้ว', 'danger');
+        await refreshFromServer();
+      } catch (err) {
+        console.error(err);
+        showToast(`ลบไม่สำเร็จ: ${err.message}`, 'danger');
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('trainingForm').reset();
+      document.getElementById('editId').value = '';
+      document.getElementById('currentFile').innerHTML = '';
+      window.currentFileData = null;
+      document.getElementById('averageScore').value = '';
+    }
+
+    /******************************************************************
+     * Export CSV/JSON -> Download ลงเครื่อง (ตาม requirement)
+     ******************************************************************/
+    function exportToCSV() {
+      if (!trainingRecords || trainingRecords.length === 0) {
+        alert('ไม่มีข้อมูลให้ Export');
+        return;
+      }
+
+      const headers = [
+        'id', 'timestamp',
+        'รหัสพนักงาน', 'ชื่อ', 'นามสกุล', 'อีเมล', 'แผนก', 'ตำแหน่ง',
+        'คอร์ส', 'หมวดหมู่', 'วันที่อบรม', 'เวลาเริ่ม', 'เวลาสิ้นสุด',
+        'วิทยากร', 'สถาบัน', 'Pre-Test', 'Post-Test', 'เกณฑ์ผ่าน', 'คะแนนเฉลี่ย',
+        'สถานะ Assignment', 'ผลการประเมิน', 'หมายเหตุ',
+        'Assignment File Name', 'Assignment File URL'
+      ];
+
+      let csv = '\uFEFF' + headers.join(',') + '\n';
+
+      trainingRecords.forEach(r => {
+        const row = [
+          safeCsv(r.id),
+          safeCsv(r.timestamp),
+          safeCsv(r.employeeId),
+          safeCsv(r.firstName),
+          safeCsv(r.lastName),
+          safeCsv(r.email),
+          safeCsv(r.department),
+          safeCsv(r.position),
+          safeCsv(r.courseName),
+          safeCsv(r.courseCategory),
+          safeCsv(r.trainingDate),
+          safeCsv(r.startTime),
+          safeCsv(r.endTime),
+          safeCsv(r.instructorName),
+          safeCsv(r.institution || ''),
+          safeCsv(r.preTestScore),
+          safeCsv(r.postTestScore),
+          safeCsv(r.passingScore),
+          safeCsv(r.averageScore),
+          safeCsv(r.assignmentStatus),
+          safeCsv(r.overallRating || ''),
+          safeCsv(r.additionalNotes || ''),
+          safeCsv(r.assignmentFileName || ''),
+          safeCsv(r.assignmentFileUrl || ''),
+        ];
+        csv += row.join(',') + '\n';
+      });
+
+      downloadFile(csv, 'training_records.csv', 'text/csv;charset=utf-8;');
+      showToast('Export CSV เรียบร้อยแล้ว', 'success');
+    }
+
+    function exportToJSON() {
+      if (!trainingRecords || trainingRecords.length === 0) {
+        alert('ไม่มีข้อมูลให้ Export');
+        return;
+      }
+
+      const json = JSON.stringify(trainingRecords, null, 2);
+      downloadFile(json, 'training_records.json', 'application/json');
+      showToast('Export JSON เรียบร้อยแล้ว', 'success');
+    }
+
+    function safeCsv(value) {
+      const s = value === null || value === undefined ? '' : String(value);
+      // escape double quotes
+      const escaped = s.replace(/"/g, '""');
+      // quote when needed
+      return /[",\n]/.test(escaped) ? `"${escaped}"` : escaped;
+    }
+
+    function downloadFile(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    /******************************************************************
+     * Certificate (คงฟังก์ชันเดิมบางส่วน — ดึงจาก trainingRecords)
+     ******************************************************************/
+    function showCertificate(id) {
+      const record = trainingRecords.find(r => r.id === id);
+      if (!record) return;
+
+      currentCertificateData = record;
+
+      const certHTML = `
+        <div style="padding: 2rem; font-family: 'Sarabun', sans-serif;">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #667eea; margin: 0;">ใบประกาศนียบัตร</h1>
+            <p style="font-size: 1.2rem; color: #718096; margin-top: 0.5rem;">Certificate of Completion</p>
+          </div>
+
+          <div style="text-align: center; margin: 2rem 0;">
+            <p style="font-size: 1.1rem; color: #2d3748;">ขอมอบให้แก่</p>
+            <h2 style="font-size: 2.5rem; color: #2d3748; margin: 1rem 0; font-weight: 700;">
+              ${escapeHtml(record.firstName || '')} ${escapeHtml(record.lastName || '')}
+            </h2>
+            <p style="font-size: 1rem; color: #718096;">รหัสพนักงาน: ${escapeHtml(record.employeeId || '')}</p>
+          </div>
+
+          <div style="text-align: center; margin: 2rem 0; padding: 2rem; background: #f8f9ff; border-radius: 12px;">
+            <p style="font-size: 1.1rem; color: #2d3748; margin-bottom: 0.5rem;">ผ่านการอบรมหลักสูตร</p>
+            <h3 style="font-size: 1.8rem; color: #667eea; margin: 0.5rem 0; font-weight: 700;">
+              ${escapeHtml(record.courseName || '')}
+            </h3>
+            <p style="font-size: 1rem; color: #718096; margin-top: 0.5rem;">
+              โดย ${escapeHtml(record.instructorName || '')}${record.institution ? ' จาก ' + escapeHtml(record.institution) : ''}
+            </p>
+            <p style="font-size: 1rem; color: #718096; margin-top: 1rem;">
+              วันที่อบรม: ${formatDate(record.trainingDate)}
+            </p>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; margin: 2rem 0; padding: 1rem; background: white; border-radius: 12px; border: 2px solid #e2e8f0;">
+            <div style="text-align: center;">
+              <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนน Pre-Test</p>
+              <p style="font-size: 2rem; color: #667eea; font-weight: 700; margin: 0.5rem 0;">${escapeHtml(String(record.preTestScore ?? ''))}</p>
+            </div>
+            <div style="text-align: center;">
+              <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนน Post-Test</p>
+              <p style="font-size: 2rem; color: #667eea; font-weight: 700; margin: 0.5rem 0;">${escapeHtml(String(record.postTestScore ?? ''))}</p>
+            </div>
+            <div style="text-align: center;">
+              <p style="font-size: 0.9rem; color: #718096; margin: 0;">คะแนนเฉลี่ย</p>
+              <p style="font-size: 2rem; color: #00b894; font-weight: 700; margin: 0.5rem 0;">${escapeHtml(String(record.averageScore ?? ''))}</p>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 3rem;">
+            <p style="font-size: 0.9rem; color: #718096;">ออกให้ ณ วันที่ ${formatDate(new Date().toISOString().split('T')[0])}</p>
+            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #2d3748; display: inline-block; width: 300px;">
+              <p style="font-size: 1rem; color: #2d3748; margin: 0;">ผู้อำนวยการฝ่ายทรัพยากรบุคคล</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('certificateContent').innerHTML = certHTML;
+      const modal = new bootstrap.Modal(document.getElementById('certificateModal'));
+      modal.show();
+    }
+
+    function downloadCertificate() {
+      if (!currentCertificateData) return;
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+      const record = currentCertificateData;
+
+      doc.setFontSize(32);
+      doc.setTextColor(102, 126, 234);
+      doc.text('ใบประกาศนียบัตร', 148.5, 40, { align: 'center' });
+
+      doc.setFontSize(14);
+      doc.setTextColor(113, 128, 150);
+      doc.text('Certificate of Completion', 148.5, 50, { align: 'center' });
+
+      doc.setFontSize(12);
+      doc.setTextColor(45, 55, 72);
+      doc.text('ขอมอบให้แก่', 148.5, 70, { align: 'center' });
+
+      doc.setFontSize(24);
+      doc.setTextColor(45, 55, 72);
+      doc.text(`${record.firstName || ''} ${record.lastName || ''}`, 148.5, 85, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.setTextColor(113, 128, 150);
+      doc.text(`รหัสพนักงาน: ${record.employeeId || ''}`, 148.5, 92, { align: 'center' });
+
+      doc.setFontSize(12);
+      doc.setTextColor(45, 55, 72);
+      doc.text('ผ่านการอบรมหลักสูตร', 148.5, 105, { align: 'center' });
+
+      doc.setFontSize(18);
+      doc.setTextColor(102, 126, 234);
+      doc.text(record.courseName || '', 148.5, 115, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.setTextColor(113, 128, 150);
+      doc.text(`โดย ${record.instructorName || ''}`, 148.5, 123, { align: 'center' });
+      doc.text(`วันที่อบรม: ${formatDate(record.trainingDate)}`, 148.5, 130, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.text(`Pre-Test: ${record.preTestScore ?? ''}`, 80, 150, { align: 'center' });
+      doc.text(`Post-Test: ${record.postTestScore ?? ''}`, 148.5, 150, { align: 'center' });
+      doc.text(`คะแนนเฉลี่ย: ${record.averageScore ?? ''}`, 217, 150, { align: 'center' });
+
+      doc.setFontSize(9);
+      doc.text(`ออกให้ ณ วันที่ ${formatDate(new Date().toISOString().split('T')[0])}`, 148.5, 175, { align: 'center' });
+
+      doc.line(118.5, 185, 178.5, 185);
+      doc.text('ผู้อำนวยการฝ่ายทรัพยากรบุคคล', 148.5, 190, { align: 'center' });
+
+      doc.save(`certificate_${record.employeeId || 'EMP'}_${record.firstName || ''}_${record.lastName || ''}.pdf`);
+      showToast('ดาวน์โหลดใบประกาศนียบัตรเรียบร้อยแล้ว', 'success');
+    }
+
+    /******************************************************************
+     * Utilities
+     ******************************************************************/
+    function showToast(message, type = 'info') {
+      const colors = {
+        success: '#00b894',
+        danger: '#d63031',
+        warning: '#fdcb6e',
+        info: '#667eea'
+      };
+
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        z-index: 9999;
+        font-weight: 600;
+        animation: slideIn 0.3s ease-out;
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+      @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
+    `;
+    document.head.appendChild(style);
+
+    function debounce(fn, wait) {
+      let t = null;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), wait);
+      };
+    }
+
+    function escapeHtml(s) {
+      const str = s === null || s === undefined ? '' : String(s);
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  </script>
 </body>
 
 </html>
