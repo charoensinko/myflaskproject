@@ -11,7 +11,7 @@ def home():
 @app.route("/api/gs", methods=["POST"])
 def gs_proxy():
     apps_script_url = (os.environ.get("https://script.google.com/macros/s/AKfycbwxndmNz7A0a6ct220RYhhPycM6m5DRfbxutA2_kWVN2p7dWQSwCLbk85Es3zUljPyy/exec") or "").strip()
-    api_key = (os.environ.get("my_hr_app_2026_secret") or "").strip()
+    api_key = (os.environ.get("MYHRAPP2026") or "").strip()
 
     if not apps_script_url:
         return jsonify({"ok": False, "error": "Missing APPS_SCRIPT_URL env var"}), 500
@@ -43,3 +43,4 @@ def healthz():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5000"))
     app.run(host="0.0.0.0", port=port, debug=True)
+
