@@ -679,28 +679,19 @@
      * Backend helper (Apps Script Web App)
      ******************************************************************/
     async function callBackend(action, payload = {}) {
-      if (!WEB_APP_URL || WEB_APP_URL.startsWith("PASTE_")) {
-        throw new Error("ยังไม่ได้ตั้งค่า WEB_APP_URL ใน index.html");
-      }
-      const res = await fetch(WEB_APP_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          apiKey: API_KEY,
-          action,
-          payload,
-        })
-      });
+        const res = await fetch("/api/gs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action, payload })
+        });
 
-      // Apps Script จะคืน JSON
-      const data = await res.json();
-      if (!data.ok) {
-        const msg = data.error || "Backend error";
-        throw new Error(msg);
+        const data = await res.json();
+        if (!data.ok) {
+          throw new Error(data.error || "Backend error");
+        }
+        return data;
       }
-      return data;
-    }
-
+    
     async function refreshFromServer() {
       try {
         const data = await callBackend("listRecords", {});
