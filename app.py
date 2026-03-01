@@ -1,12 +1,47 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+import os
+import requests
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    # render_template จะไปหาไฟล์ในโฟลเดอร์ templates/
     return render_template("index.html")
 
+@app.route("/api/gs", methods=["POST"])
+def gs_proxy():
+    """
+    Proxy ไป Google Apps Script Web App
+    Request from browser: { "action": "...", "payload": {...} }
+    Flask will add apiKey and forward to Apps Script.
+    """
+    apps_script_url = os.environ.get("https://script.google.com/macros/s/AKfycbwxndmNz7A0a6ct220RYhhPycM6m5DRfbxutA2_kWVN2p7dWQSwCLbk85Es3zUljPyy/exec", "").strip()
+    api_key = os.environ.get("my_hr_app_2026_secret", "").strip()
+
+    if not apps_script_url:
+        return jsonify({"ok": False, "error": "Missing APPS_SCRIPT_URL env var"}), 500
+    if not api_key:
+        return jsonify({"ok": False, "error": "Missing APPS_SCRIPT_API_KEY env var"}), 500
+
+    body = request.get_json(silent=True) or {}
+    action = body.get("action")
+    payload = body.get("payload", {})
+
+    if not action:
+        return jsonify({"ok": False, "error": "Missing action"}), 400
+
+    try:
+        # Forward to Apps Script
+        r = requests.post(
+            apps_script_url,
+            json={"apiKey": api_key, "action": action, "payload": payload},
+            timeout=30,
+        )
+        # Apps Script usually returns JSON text
+        return (r.text, r.status_code, {"Content-Type": "application/json; charset=utf-8"})
+    except requests.RequestException as e:
+        return jsonify({"ok": False, "error": f"Proxy request failed: {str(e)}"}), 502
+
 if __name__ == "__main__":
-    # debug=True ช่วยให้แก้โค้ดแล้วรีโหลดอัตโนมัติ (เหมาะกับตอนพัฒนา)
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port, debug=True)
