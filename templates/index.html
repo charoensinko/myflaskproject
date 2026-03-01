@@ -569,8 +569,8 @@
                     <div class="mb-2">
                         <label class="form-label">ไฟล์ Assignment</label>
                         <input type="file" class="form-control" id="assignmentFile"
-                            accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
-                        <small class="text-muted">รองรับไฟล์: PDF, Word, PowerPoint, ZIP (ขนาดไม่เกิน 5MB)</small>
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,image/*">
+                        <small class="text-muted">รองรับไฟล์: PDF, Word, PowerPoint, ZIP และรูปภาพทุกชนิด (ขนาดไม่เกิน 5MB)</small>
                         <div id="currentFile" class="mt-2"></div>
                     </div>
 
@@ -713,14 +713,18 @@
         let currentCertificateData = null;
 
         // Load data from localStorage on page load
-        window.addEventListener('DOMContentLoaded', function () {
-            loadData();
-            displayRecords();
-            updateStatistics();
+        window.addEventListener('DOMContentLoaded', async function () {
+            try {
+                await refreshFromServer();
+            } catch (e) {
+                console.error(e);
+            }
 
             // Calculate average score automatically
             document.getElementById('preTestScore').addEventListener('input', calculateAverage);
             document.getElementById('postTestScore').addEventListener('input', calculateAverage);
+            document.getElementById('preTestScore').addEventListener('change', calculateAverage);
+            document.getElementById('postTestScore').addEventListener('change', calculateAverage);
             // Search/Filter -> query from Google Sheets
             document.getElementById('searchInput').addEventListener('input', debounce(async () => {
                 try { await runSearch(); } catch (e) { console.error(e); }
@@ -732,7 +736,6 @@
                 try { await runSearch(); } catch (e) { console.error(e); }
             });
 
-
             // Search and filter functionality
             document.getElementById('searchInput').addEventListener('input', displayRecords);
             document.getElementById('filterStatus').addEventListener('change', displayRecords);
@@ -743,13 +746,21 @@
         });
 
         function calculateAverage() {
-            const preTest = parseFloat(document.getElementById('preTestScore').value) || 0;
-            const postTest = parseFloat(document.getElementById('postTestScore').value) || 0;
+            const preRaw = document.getElementById('preTestScore').value;
+            const postRaw = document.getElementById('postTestScore').value;
+
+            // ถ้ายังไม่กรอกทั้งคู่ ให้เว้นว่างไว้
+            if (preRaw === '' && postRaw === '') {
+                document.getElementById('averageScore').value = '';
+                return;
+            }
+
+            const preTest = parseFloat(preRaw) || 0;
+            const postTest = parseFloat(postRaw) || 0;
             const average = ((preTest + postTest) / 2).toFixed(2);
             document.getElementById('averageScore').value = average;
         }
-
-        function handleFileUpload(event) {
+function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
                 // Check file size (5MB limit)
@@ -827,6 +838,9 @@
         // Form submission (Save -> Google Sheets + Drive)
         document.getElementById('trainingForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+
+            // ✅ คำนวณคะแนนเฉลี่ยก่อนบันทึกทุกครั้ง
+            calculateAverage();
 
             const editId = document.getElementById('editId').value;
             const recordData = {
