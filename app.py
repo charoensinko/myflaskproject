@@ -10,13 +10,8 @@ def home():
 
 @app.route("/api/gs", methods=["POST"])
 def gs_proxy():
-    """
-    Proxy ไป Google Apps Script Web App
-    Request from browser: { "action": "...", "payload": {...} }
-    Flask will add apiKey and forward to Apps Script.
-    """
-    apps_script_url = os.environ.get("https://script.google.com/macros/s/AKfycbwxndmNz7A0a6ct220RYhhPycM6m5DRfbxutA2_kWVN2p7dWQSwCLbk85Es3zUljPyy/exec", "").strip()
-    api_key = os.environ.get("my_hr_app_2026_secret", "").strip()
+    apps_script_url = (os.environ.get("https://script.google.com/macros/s/AKfycbwxndmNz7A0a6ct220RYhhPycM6m5DRfbxutA2_kWVN2p7dWQSwCLbk85Es3zUljPyy/exec") or "").strip()
+    api_key = (os.environ.get("my_hr_app_2026_secret") or "").strip()
 
     if not apps_script_url:
         return jsonify({"ok": False, "error": "Missing APPS_SCRIPT_URL env var"}), 500
@@ -31,16 +26,19 @@ def gs_proxy():
         return jsonify({"ok": False, "error": "Missing action"}), 400
 
     try:
-        # Forward to Apps Script
         r = requests.post(
             apps_script_url,
             json={"apiKey": api_key, "action": action, "payload": payload},
-            timeout=30,
+            timeout=45,
+            allow_redirects=True,
         )
-        # Apps Script usually returns JSON text
         return (r.text, r.status_code, {"Content-Type": "application/json; charset=utf-8"})
     except requests.RequestException as e:
         return jsonify({"ok": False, "error": f"Proxy request failed: {str(e)}"}), 502
+
+@app.route("/healthz")
+def healthz():
+    return {"ok": True}
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5000"))
